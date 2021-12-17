@@ -52,7 +52,8 @@ class HarborConfigModule(HarborBaseModule):
         # Get existing configuration
         before_request = requests.get(
             self.api_url+'/configurations',
-            auth=self.auth
+            auth=self.auth,
+            verify=self.api_verify
         )
         before = before_request.json()
         result['configuration'] = before.copy()
@@ -102,7 +103,7 @@ class HarborConfigModule(HarborBaseModule):
                 set_request = requests.put(
                     self.api_url+'/configurations',
                     auth=self.auth,
-                    json=desired_configuration,
+                    json=desired_configuration
                 )
                 if set_request.status_code == 200:
                     pass
